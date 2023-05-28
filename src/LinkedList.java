@@ -63,12 +63,13 @@ public class LinkedList {
         }
     }
 
-    public void removeHead() {
+    public String removeHead() {
         Node removedHead = this.head;
         if (removedHead == null) {
-            return;
+            return "";
         }
         this.head = removedHead.getNextNode();
+        return "";
     }
 
     public static void main(String[] args){
