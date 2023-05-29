@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class Tree {
     public TreeNode root;
 
@@ -20,14 +23,24 @@ public class Tree {
         }
     }
 
-    // Define depthFirstTraversal() below
-    public void depthFirstTraversal(TreeNode current){
+    public void depthFirstTraversal(TreeNode current) {
         System.out.print(current.data + " ");
-        for(TreeNode child : current.children){
+        for (TreeNode child : current.children) {
             depthFirstTraversal(child);
         }
     }
 
+    // Define breadthFirstTraversal() below
+    public void breadthFirstTraversal(){
+        TreeNode current = this.root;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(current);
+        while(!queue.isEmpty()){
+            current = queue.poll();
+            System.out.print(current.data + " ");
+            queue.addAll(current.children);
+        }
+    }
 
     public static void main(String[] args) {
         TreeNode treeRoot = new TreeNode("S");
@@ -43,7 +56,7 @@ public class Tree {
         Tree tree = new Tree(treeRoot);
         tree.print();
 
-        // Call depthFirstTraversal below
-        tree.depthFirstTraversal(treeRoot);
+        // Breadth-first traversal below:
+        tree.breadthFirstTraversal();
     }
 }
