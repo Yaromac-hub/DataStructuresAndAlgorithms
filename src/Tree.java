@@ -30,12 +30,11 @@ public class Tree {
         }
     }
 
-    // Define breadthFirstTraversal() below
-    public void breadthFirstTraversal(){
+    public void breadthFirstTraversal() {
         TreeNode current = this.root;
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(current);
-        while(!queue.isEmpty()){
+        while (!queue.isEmpty()) {
             current = queue.poll();
             System.out.print(current.data + " ");
             queue.addAll(current.children);
@@ -43,20 +42,40 @@ public class Tree {
     }
 
     public static void main(String[] args) {
-        TreeNode treeRoot = new TreeNode("S");
-        TreeNode child1 = new TreeNode("N");
-        TreeNode child2 = new TreeNode("O");
-        TreeNode grandchild1 = new TreeNode("W");
-        TreeNode grandchild2 = new TreeNode("Y");
-        treeRoot.addChild(child1);
-        treeRoot.addChild(child2);
-        child1.addChild(grandchild1);
-        child2.addChild(grandchild2);
+        TreeNode animals = new TreeNode("Animals");
+        TreeNode reptile = new TreeNode("Reptiles");
+        TreeNode mammals = new TreeNode("Mammals");
+        animals.addChild(reptile);
+        animals.addChild(mammals);
+        reptile.addChild("Lizard");
+        reptile.addChild("Snake");
+        TreeNode equine = new TreeNode("Equine");
+        TreeNode bovine = new TreeNode("Bovine");
+        TreeNode marsupial = new TreeNode("Marsupial");
+        mammals.addChild(equine);
+        mammals.addChild(bovine);
+        mammals.addChild(marsupial);
+        equine.addChild("Horse");
+        equine.addChild("Zebra");
+        bovine.addChild("Husky");
+        marsupial.addChild("Koala");
 
-        Tree tree = new Tree(treeRoot);
-        tree.print();
+        Tree animalTree = new Tree(animals);
 
-        // Breadth-first traversal below:
-        tree.breadthFirstTraversal();
+        // Add and remove accordingly
+        animals.removeChild("Husky");
+        bovine.addChild("Cow");
+        marsupial.addChild("Kangaroo");
+
+        animalTree.print();
+
+        System.out.println("Printing DFS Traversal:");
+        // Depth-first traversal
+        animalTree.depthFirstTraversal(animals);
+
+        System.out.println("");
+        System.out.println("Printing BFS Traversal:");
+        // Breadth-first traversal
+        animalTree.breadthFirstTraversal();
     }
 }
