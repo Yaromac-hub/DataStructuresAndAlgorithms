@@ -37,29 +37,38 @@ public class BinarySearchTree {
         }
     }
 
-    // Define getNodeByValue() below
-    public BinarySearchTree getNodeByValue(int value){
-        if(this.value == value){
+    public BinarySearchTree getNodeByValue(int value) {
+        if (this.value == value) {
             return this;
-        }
-        else if(value < this.value && this.left != null){
+        } else if (value < this.value && this.left != null) {
             return this.left.getNodeByValue(value);
-        }
-        else if(value > this.value && this.right != null){
+        } else if (value > this.value && this.right != null) {
             return this.right.getNodeByValue(value);
         }
         return null;
     }
 
-    public static void main(String[] args) {
-        BinarySearchTree root = new BinarySearchTree(100);
-        root.insert(50);
-        root.insert(125);
-        root.insert(75);
-        root.insert(25);
-        // Get nodes by value below
-        System.out.println(root.getNodeByValue(75));
-        System.out.println(root.getNodeByValue(55));
+    // Define depthFirstTraversal below
+    public void depthFirstTraversal(){
+        if(this.left != null){
+            this.left.depthFirstTraversal();
+        }
+        System.out.println(this.value);
+        if(this.right != null){
+            this.right.depthFirstTraversal();
+        }
+    }
 
+    public static void main(String[] args) {
+        BinarySearchTree tree = new BinarySearchTree(48);
+        tree.insert(24);
+        tree.insert(55);
+        tree.insert(26);
+        tree.insert(38);
+        tree.insert(56);
+        tree.insert(74);
+
+        // Print depth-first traversal
+        tree.depthFirstTraversal();
     }
 }
