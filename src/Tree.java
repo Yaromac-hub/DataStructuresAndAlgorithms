@@ -1,9 +1,7 @@
 public class Tree {
-
-    // Instance variable here
     public TreeNode root;
-    // Constructor here
-    public Tree(TreeNode root){
+
+    public Tree(TreeNode root) {
         this.root = root;
     }
 
@@ -34,9 +32,16 @@ public class Tree {
         child1.addChild(grandchild1);
         child2.addChild(grandchild2);
         // Create tree
-        Tree letters = new Tree(treeRoot);
-
+        Tree tree = new Tree(treeRoot);
         // Print tree
-        letters.print();
+        tree.print();
+        // Remove grandchild2 from the tree
+        treeRoot.removeChild(grandchild2);
+        // Print the tree
+        tree.print();
+        // Remove "O" from the tree
+        treeRoot.removeChild("O");
+        // Print the tree again
+        tree.print();
     }
 }
