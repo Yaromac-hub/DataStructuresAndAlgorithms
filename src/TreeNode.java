@@ -19,29 +19,37 @@ public class TreeNode {
         this.children.add(child);
     }
 
-    // removeChild() with TreeNode parameter
-    public void removeChild(TreeNode childToRemove){
-        if(this.children.isEmpty()){
-            return ;
-        }
-        else if(this.children.contains(childToRemove)){
+    public void removeChild(TreeNode childToRemove) {
+        if (this.children.isEmpty()) {
+            return;
+        } else if (this.children.contains(childToRemove)) {
             this.children.remove(childToRemove);
-            return ;
-        }
-        else{
-            for(TreeNode child : this.children){
+            return;
+        } else {
+            for (TreeNode child : this.children) {
                 child.removeChild(childToRemove);
             }
         }
     }
 
-    public static void main(String[] args) {
-        TreeNode root = new TreeNode(30);
-        TreeNode child = new TreeNode(26);
-        root.addChild(child);
-        // Remove child from root
+    // removeChild with data parameter
+    public void removeChild(Object targetData){
+        if (this.children.isEmpty()) {
+            return;
+        }
+        for (TreeNode child : this.children) {
+            if(child.data == targetData){
+                this.children.remove(child);
+                return;
+            }
+        }
+        for (TreeNode child : this.children) {
+            child.removeChild(targetData);
+        }
 
-        // Print size of root's children list
-        System.out.println(root.children.size());
+    }
+
+    public static void main(String[] args) {
+
     }
 }
