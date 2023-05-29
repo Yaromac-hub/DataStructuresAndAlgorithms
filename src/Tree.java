@@ -66,7 +66,7 @@ public class Tree {
         animals.removeChild("Husky");
         bovine.addChild("Cow");
         marsupial.addChild("Kangaroo");
-
+        animals.removeChild("Mammals");
         animalTree.print();
 
         System.out.println("Printing DFS Traversal:");
