@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Random;
 public class MinHeap {
     public ArrayList<Integer> heap;
     public int size;
@@ -18,7 +19,21 @@ public class MinHeap {
     }
 
     private void bubbleUp() {
-        System.out.println("Restoring heap condition...");
+        // Instantiate current below
+        int current = this.size;
+        // Create the while loop below
+        while(current>1 &&
+                this.heap.get(current) < this.heap.get(this.getParent(current))){
+            System.out.println("Swap index " + current + " with index " + this.getParent(current));
+            this.swap(current, this.getParent(current));
+            current = this.getParent(current);
+        }
+    }
+
+    private void swap(int a, int b) {
+        int temp = this.heap.get(b);
+        this.heap.set(b, this.heap.get(a));
+        this.heap.set(a, temp);
     }
 
     public int getParent(int current) {
@@ -33,32 +48,20 @@ public class MinHeap {
         return (current * 2) + 1;
     }
 
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         MinHeap minHeap = new MinHeap();
-        // Sample content of minHeap
-        minHeap.add(10);
-        minHeap.add(13);
-        minHeap.add(21);
-        minHeap.add(61);
-        minHeap.add(22);
-        minHeap.add(23);
-        minHeap.add(99);
 
-        // Display parent, left and right indices of currentIndex
-        int currentIndex = 3;
-        System.out.println("----------");
-        System.out.println("Let's look at index " + currentIndex);
-        System.out.println("Parent index: " + minHeap.getParent(currentIndex));
-        System.out.println("Left child index: " + minHeap.getLeft(currentIndex));
-        System.out.println("Right child index: " + minHeap.getRight(currentIndex));
+        // Populate minHeap with 6 random numbers
+        Random r = new Random();
+        for (int i = 0; i < 6; i++) {
+            System.out.println("-------------");
+            int int_random = r.nextInt(40);
+            minHeap.add(int_random);
+        }
 
-
-        // Display the parent, left and right child values of currentValue
-        int currentValue = minHeap.heap.get(currentIndex);
-        System.out.println("The value at index 3 is " + currentValue);
-        System.out.println("Parent value: " + minHeap.heap.get(minHeap.getParent(currentIndex)));
-        System.out.println("Left child value: " + minHeap.heap.get(minHeap.getLeft(currentIndex)));
-        System.out.println("Right child value: " + minHeap.heap.get(minHeap.getRight(currentIndex)));
+        // Display the heap after bubbling up
+        System.out.println("-------------");
+        System.out.println("BUBBLED UP: " + minHeap.heap);
 
     }
 }
