@@ -18,9 +18,8 @@ public class MinHeap {
         this.bubbleUp();
     }
 
-    // Complete popMin() below
     public int popMin() {
-        if(this.size == 0){
+        if (this.size == 0) {
             throw new Error("Heap is empty!");
         }
         System.out.println("Swap min element " + this.heap.get(1) + " and last element " + this.heap.get(this.size));
@@ -42,10 +41,32 @@ public class MinHeap {
         }
     }
 
+    // Define heapify() below
+    private void heapify(){
+        int current = 1;
+        int leftChild = this.getLeft(current);
+        int rightChild = this.getRight(current);
+        while(this.canSwap(current, leftChild, rightChild)){
+            current = leftChild;
+            leftChild = this.getLeft(current);
+            rightChild = this.getRight(current);
+        }
+    }
+
+
     private void swap(int a, int b) {
         int temp = this.heap.get(b);
         this.heap.set(b, this.heap.get(a));
         this.heap.set(a, temp);
+    }
+
+    private boolean exists(int index) {
+        return index <= this.size;
+    }
+
+    private boolean canSwap(int current, int leftChild, int rightChild) {
+        return (this.exists(leftChild) && (this.heap.get(current) > this.heap.get(leftChild)))
+                || (this.exists(rightChild) && (this.heap.get(current) > this.heap.get(rightChild)));
     }
 
     public int getParent(int current) {
@@ -64,9 +85,11 @@ public class MinHeap {
         MinHeap minHeap = new MinHeap();
         Random r = new Random();
         for (int i = 0; i < 6; i++) {
+            System.out.println("--------------");
             int int_random = r.nextInt(40);
             minHeap.add(int_random);
         }
+        System.out.println("--------------");
         System.out.println("BUBBLED UP: " + minHeap.heap);
 
         // Remove the minimum value
