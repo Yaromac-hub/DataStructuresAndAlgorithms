@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Random;
 public class MinHeap {
     public ArrayList<Integer> heap;
     public int size;
@@ -13,8 +12,6 @@ public class MinHeap {
     public void add(int value) {
         this.heap.add(value);
         this.size++;
-        System.out.println("Adding " + value);
-        System.out.println(this.heap);
         this.bubbleUp();
     }
 
@@ -22,11 +19,8 @@ public class MinHeap {
         if (this.size == 0) {
             throw new Error("Heap is empty!");
         }
-        System.out.println("Swap min element " + this.heap.get(1) + " and last element " + this.heap.get(this.size));
         this.swap(1, this.size);
         int min = this.heap.remove(this.size);
-        System.out.println("Removed from the heap: " + min);
-        System.out.println(this.heap);
         this.size--;
         this.heapify();
         return min;
@@ -34,11 +28,14 @@ public class MinHeap {
 
     private void bubbleUp() {
         int current = this.size;
-        while (current > 1 && this.heap.get(this.getParent(current)) > this.heap.get(current)) {
-            System.out.println("Swap index " + current + " with index " + this.getParent(current));
-            System.out.println(this.heap);
+        int swapCount = 0;
+        while (current > 1 && this.heap.get(current) < this.heap.get(this.getParent(current))) {
             this.swap(current, this.getParent(current));
             current = this.getParent(current);
+            swapCount++;
+        }
+        if (this.size == 10000) {
+            System.out.println("A heap of " + this.size + " elements was restored with only " + swapCount + " swaps!");
         }
     }
 
@@ -46,23 +43,29 @@ public class MinHeap {
         int current = 1;
         int leftChild = this.getLeft(current);
         int rightChild = this.getRight(current);
+        int swapCount = 0;
         while (this.canSwap(current, leftChild, rightChild)) {
-            if(this.exists(leftChild) && this.exists(rightChild)){
-                if(this.heap.get(leftChild)<this.heap.get(rightChild)){
+            if (this.exists(leftChild) && this.exists(rightChild)) {
+                if (this.heap.get(leftChild) < this.heap.get(rightChild)) {
                     this.swap(current, leftChild);
                     current = leftChild;
-                }
-                else{
+                    swapCount++;
+                } else {
                     this.swap(current, rightChild);
                     current = rightChild;
+                    swapCount++;
                 }
-            }
-            else{
+
+            } else {
                 this.swap(current, leftChild);
                 current = leftChild;
+                swapCount++;
             }
             leftChild = this.getLeft(current);
             rightChild = this.getRight(current);
+        }
+        if (this.size == 9999) {
+            System.out.println("A heap of " + this.size + " elements was restored with only " + swapCount + " swaps!");
         }
     }
 
@@ -93,21 +96,16 @@ public class MinHeap {
         return (current * 2) + 1;
     }
 
-    public static void main(String[]args) {
+    public static void main(String[] args) {
         MinHeap minHeap = new MinHeap();
-        Random r = new Random();
-        for (int i = 0; i < 6; i++) {
-            int int_random = r.nextInt(40);
-            minHeap.add(int_random);
-        }
-        System.out.println("--------------");
-        System.out.println("BUBBLED UP: " + minHeap.heap);
 
-        // Remove minimum value multiple times
-        for (int i = 0; i < 6; i++) {
-            System.out.println("--------------");
-            minHeap.popMin();
-            System.out.println("HEAPIFIED: " + minHeap.heap);
+        // Populate minHeap with descending #s from 10001 to 1
+        System.out.println("Adding 10000 individual elements...");
+        for (int i = 10000; i >= 1; i--) {
+            minHeap.add(i);
         }
+        // Remove minimum value from minHeap
+        System.out.println("Removing the minimum value...");
+        System.out.println("Minimum value: " + minHeap.popMin());
     }
 }
