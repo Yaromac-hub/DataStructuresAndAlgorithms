@@ -28,12 +28,13 @@ public class MinHeap {
         System.out.println("Removed from the heap: " + min);
         System.out.println(this.heap);
         this.size--;
+        this.heapify();
         return min;
     }
 
     private void bubbleUp() {
         int current = this.size;
-        while (current > 1 && this.heap.get(current) < this.heap.get(this.getParent(current))) {
+        while (current > 1 && this.heap.get(this.getParent(current)) > this.heap.get(current)) {
             System.out.println("Swap index " + current + " with index " + this.getParent(current));
             System.out.println(this.heap);
             this.swap(current, this.getParent(current));
@@ -41,18 +42,29 @@ public class MinHeap {
         }
     }
 
-    // Define heapify() below
-    private void heapify(){
+    private void heapify() {
         int current = 1;
         int leftChild = this.getLeft(current);
         int rightChild = this.getRight(current);
-        while(this.canSwap(current, leftChild, rightChild)){
-            current = leftChild;
+        while (this.canSwap(current, leftChild, rightChild)) {
+            if(this.exists(leftChild) && this.exists(rightChild)){
+                if(this.heap.get(leftChild)<this.heap.get(rightChild)){
+                    this.swap(current, leftChild);
+                    current = leftChild;
+                }
+                else{
+                    this.swap(current, rightChild);
+                    current = rightChild;
+                }
+            }
+            else{
+                this.swap(current, leftChild);
+                current = leftChild;
+            }
             leftChild = this.getLeft(current);
             rightChild = this.getRight(current);
         }
     }
-
 
     private void swap(int a, int b) {
         int temp = this.heap.get(b);
@@ -85,14 +97,17 @@ public class MinHeap {
         MinHeap minHeap = new MinHeap();
         Random r = new Random();
         for (int i = 0; i < 6; i++) {
-            System.out.println("--------------");
             int int_random = r.nextInt(40);
             minHeap.add(int_random);
         }
         System.out.println("--------------");
         System.out.println("BUBBLED UP: " + minHeap.heap);
 
-        // Remove the minimum value
-        minHeap.popMin();
+        // Remove minimum value multiple times
+        for (int i = 0; i < 6; i++) {
+            System.out.println("--------------");
+            minHeap.popMin();
+            System.out.println("HEAPIFIED: " + minHeap.heap);
+        }
     }
 }
