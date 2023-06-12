@@ -13,17 +13,31 @@ public class MergeSort {
         return merge(sort(leftArray), sort(rightArray));
     }
 
-    public int[] merge(int left[], int[] right) {
-        System.out.println(Arrays.toString(left));
-        System.out.println(Arrays.toString(right));
-        return null;
+    public int[] merge(int[] left, int[] right) {
+        int[] merged = new int[left.length + right.length];
+        int leftPos = 0;
+        int rightPos = 0;
+        int curIndex = 0;
+        while(left.length > leftPos && right.length > rightPos){
+            if(left[leftPos]<right[rightPos]){
+                merged[curIndex] = left[leftPos];
+                leftPos++;
+            }
+            else{
+                merged[curIndex] = right[rightPos];
+                rightPos++;
+            }
+            curIndex++;
+        }
+        System.arraycopy(left, leftPos, merged, curIndex, left.length - leftPos);
+        System.arraycopy(right, rightPos, merged, curIndex, right.length - rightPos);
+        return merged;
     }
 
-    public static void main (String[] args) {
 
+    public static void main (String[] args) {
         int[] inputArr = {3, 5, 2, 90, 4, 7};
         MergeSort sorter = new MergeSort();
         System.out.println(Arrays.toString(sorter.sort(inputArr)));
-
     }
 }
