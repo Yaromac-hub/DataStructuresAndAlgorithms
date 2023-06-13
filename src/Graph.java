@@ -29,7 +29,16 @@ public class Graph {
         }
     }
 
-    public static void main(String[] args) {
+    public Vertex addVertex(String data){
+        Vertex vertex = new Vertex(data);
+        this.vertices.add(vertex);
+        return vertex;
+    }
 
+    public static void main(String[] args) {
+        Graph trainNetwork = new Graph();
+        Vertex atlantaStation = trainNetwork.addVertex("Atlanta");
+        Vertex newYorkStation = trainNetwork.addVertex("New York");
+        trainNetwork.print();
     }
 }
