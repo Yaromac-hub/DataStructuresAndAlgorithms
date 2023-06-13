@@ -9,6 +9,14 @@ public class Vertex {
         this.edges = new ArrayList<Edge>();
     }
 
+    public void removeEdge(Vertex endVertex){
+        this.edges.removeIf(edge -> edge.getEnd().equals(endVertex));
+    }
+
+    public void addEdge(Vertex endVertex) {
+        this.edges.add(new Edge(this, endVertex, null));
+    }
+
     public String getData() {
         return this.data;
     }
@@ -41,11 +49,6 @@ public class Vertex {
             }
         }
         System.out.println(message);
-    }
-
-    public void addEdge(Vertex endVertex){
-        Edge edge = new Edge(this, endVertex, null);
-        this.edges.add(edge);
     }
 
     public static void main(String[] args) {
