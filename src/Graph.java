@@ -6,7 +6,7 @@ public class Graph {
     private boolean isDirected;
 
     public Graph() {
-
+        this.vertices = new ArrayList<Vertex>();
     }
 
     public ArrayList<Vertex> getVertices() {
