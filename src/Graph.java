@@ -16,6 +16,10 @@ public class Graph {
         return newVertex;
     }
 
+    public void removeVertex(Vertex vertex) {
+        this.vertices.remove(vertex);
+    }
+
     public ArrayList<Vertex> getVertices() {
         return this.vertices;
     }
@@ -36,15 +40,16 @@ public class Graph {
         }
     }
 
-    public void removeVertex(Vertex vertex){
-        this.vertices.remove(vertex);
+    public void addEdge(Vertex vertex1, Vertex vertex2){
+        vertex1.addEdge(vertex2);
+        vertex2.addEdge(vertex1);
     }
 
     public static void main(String[] args) {
         Graph trainNetwork = new Graph();
         Vertex atlantaStation = trainNetwork.addVertex("Atlanta");
         Vertex newYorkStation = trainNetwork.addVertex("New York");
-        trainNetwork.removeVertex(atlantaStation);
+        trainNetwork.addEdge(atlantaStation, newYorkStation);
         trainNetwork.print();
     }
 }
